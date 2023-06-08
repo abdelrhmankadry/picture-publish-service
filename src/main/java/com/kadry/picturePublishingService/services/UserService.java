@@ -1,10 +1,10 @@
 package com.kadry.picturePublishingService.services;
 
-import com.kadry.picturePublishingService.api.models.reponses.ResponseCodes;
-import com.kadry.picturePublishingService.api.models.reponses.SignUpResponse;
+import com.kadry.picturePublishingService.api.models.reponses.authentication.ResponseCodes;
+import com.kadry.picturePublishingService.api.models.reponses.authentication.SignUpResponse;
 import com.kadry.picturePublishingService.api.models.requests.CredentialsRequest;
-import com.kadry.picturePublishingService.domain.Role;
-import com.kadry.picturePublishingService.domain.User;
+import com.kadry.picturePublishingService.domain.user.Role;
+import com.kadry.picturePublishingService.domain.user.User;
 import com.kadry.picturePublishingService.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -1,7 +1,7 @@
 package com.kadry.picturePublishingService.fixtures.builders.domain;
 
-import com.kadry.picturePublishingService.domain.Role;
-import com.kadry.picturePublishingService.domain.User;
+import com.kadry.picturePublishingService.domain.user.Role;
+import com.kadry.picturePublishingService.domain.user.User;
 
 public class UserBuilder {
 

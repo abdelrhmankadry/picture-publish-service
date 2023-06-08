@@ -1,7 +1,7 @@
 package com.kadry.picturePublishingService.api.controllers;
 
-import com.kadry.picturePublishingService.api.models.reponses.SignInResponse;
-import com.kadry.picturePublishingService.api.models.reponses.SignUpResponse;
+import com.kadry.picturePublishingService.api.models.reponses.authentication.SignInResponse;
+import com.kadry.picturePublishingService.api.models.reponses.authentication.SignUpResponse;
 import com.kadry.picturePublishingService.api.models.requests.CredentialsRequest;
 import com.kadry.picturePublishingService.core.security.Jwt;
 import com.kadry.picturePublishingService.services.UserService;

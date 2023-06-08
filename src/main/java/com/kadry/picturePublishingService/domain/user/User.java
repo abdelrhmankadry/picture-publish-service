@@ -1,9 +1,8 @@
-package com.kadry.picturePublishingService.domain;
+package com.kadry.picturePublishingService.domain.user;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 

@@ -1,6 +1,6 @@
 package com.kadry.picturePublishingService.core.security;
 
-import com.kadry.picturePublishingService.domain.User;
+import com.kadry.picturePublishingService.domain.user.User;
 import com.kadry.picturePublishingService.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

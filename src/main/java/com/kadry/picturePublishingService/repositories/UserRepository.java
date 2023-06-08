@@ -1,6 +1,6 @@
 package com.kadry.picturePublishingService.repositories;
 
-import com.kadry.picturePublishingService.domain.User;
+import com.kadry.picturePublishingService.domain.user.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package com.kadry.picturePublishingService.api.models.reponses;
+package com.kadry.picturePublishingService.api.models.reponses.authentication;
 
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
