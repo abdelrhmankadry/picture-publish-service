@@ -1,9 +1,8 @@
 package com.kadry.picturePublishingService.integrationTests;
 
 
-import com.kadry.picturePublishingService.fixtures.builders.requests.SignUpRequestBuilder;
+import com.kadry.picturePublishingService.fixtures.builders.requests.CredentialsRequestBuilder;
 import com.kadry.picturePublishingService.repositories.UserRepository;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -12,10 +11,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static com.kadry.picturePublishingService.fixtures.builders.requests.SignUpRequestBuilder.aSignUpRequest;
+import static com.kadry.picturePublishingService.fixtures.Given.givenThat;
+import static com.kadry.picturePublishingService.fixtures.builders.requests.CredentialsRequestBuilder.aSignInRequest;
+import static com.kadry.picturePublishingService.fixtures.builders.requests.CredentialsRequestBuilder.aSignUpRequest;
 import static org.springframework.test.util.AssertionErrors.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -36,7 +37,22 @@ public class UserIT {
                 .andExpect(status().isCreated());
 
         assertTrue("User should be signed up, and should exist in the database.",
-                userRepository.findUserByEmail(SignUpRequestBuilder.EMAIL).isPresent());
+                userRepository.findUserByEmail(CredentialsRequestBuilder.EMAIL).isPresent());
+
+    }
+
+    @Test
+    public void signInTest() throws Exception {
+
+        givenThat(userRepository).hasUser(CredentialsRequestBuilder.EMAIL,
+                CredentialsRequestBuilder.PASSWORD);
+
+     mockMvc.perform(post("/api/signin")
+              .contentType(MediaType.APPLICATION_JSON)
+              .content(aSignInRequest().json()))
+              .andExpect(status().isOk())
+             .andExpect(jsonPath("$.accessToken").isNotEmpty());
+
 
     }
 }

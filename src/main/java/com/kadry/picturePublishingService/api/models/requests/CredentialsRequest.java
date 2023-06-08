@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record SignUpRequest (
+public record CredentialsRequest(
         @JsonProperty("email") @Email @NotBlank String email,
         @JsonProperty("password") @NotBlank @Size(min=8, max=56) String password
 ){}
