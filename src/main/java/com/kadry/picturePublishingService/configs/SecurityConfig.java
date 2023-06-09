@@ -27,9 +27,11 @@ public class SecurityConfig  {
     public SecurityFilterChain anonymousFilterChain(HttpSecurity http, AuthJwtTokenFilter authJwtTokenFilter) throws Exception {
 
         var whitelist = new String[] {"/api/signup", "/api/signin", "/api/pictures", "/api/picture/*"};
+        var adminAccessOnly = new String[] {"/api/pending-pictures"};
         http
                 .authorizeHttpRequests(auth -> auth.requestMatchers(toH2Console()).permitAll())
                 .authorizeHttpRequests(auth -> auth.requestMatchers(whitelist).permitAll())
+                .authorizeHttpRequests(auth -> auth.requestMatchers(adminAccessOnly).hasRole("ADMIN"))
                 .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
                 .csrf(AbstractHttpConfigurer::disable)
                 .headers((headers)-> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))

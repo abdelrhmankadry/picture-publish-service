@@ -51,7 +51,7 @@ public class PictureIT {
     public void getPendingPictureWithUserRoleTest() throws Exception {
         UUID id = UUID.randomUUID();
         givenThat(pictureRepository).hasAPendingPictureWithId(id);
-        MvcResult result= mockMvc.perform(get("/api/picture/"+id))
+        mockMvc.perform(get("/api/picture/"+id))
             .andExpect(status().isForbidden()).andReturn();
     }
 
@@ -65,5 +65,14 @@ public class PictureIT {
                 .andExpect(status().isCreated())
                 .andReturn();
         expectThat(pictureRepository).hasPictureWithSameUuidReturnedFromRequest(result);
+    }
+
+    @Test
+    @WithMockUser(roles = {"ADMIN"})
+    public void getAllPendingPictures() throws Exception {
+        givenThat(pictureRepository).hasManyPendingPictures();
+        MvcResult result= mockMvc.perform(get("/api/pending-pictures"))
+               .andExpect(status().isOk()).andReturn();
+        expectThatResultContainsAListOfPictures(result);
     }
 }

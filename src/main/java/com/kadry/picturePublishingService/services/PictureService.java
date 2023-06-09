@@ -26,12 +26,7 @@ public class PictureService {
     private final PictureRepository pictureRepository;
 
     public PicturesResponse getAllAcceptedPictures(){
-
-        List<PictureResponse> listOfPictureResponses = pictureRepository.getAllAcceptedPictures()
-                .orElse(new ArrayList<>()).stream()
-                .map(picture -> new PictureResponse(picture.getUuid().toString() ,picture.getDescription(), picture.getCategory(), picture.getPictureData()))
-                .toList();
-        return new PicturesResponse(listOfPictureResponses);
+        return  this.getPicturesByState(State.ACCEPTED);
     }
 
     public PictureResponse getAcceptedPictureById(String pictureId, AuthenticatedUser authentication) throws PictureNotFound {
@@ -49,5 +44,17 @@ public class PictureService {
                 request.category(), State.PENDING, request.picture());
         pictureRepository.save(picture);
         return new CreatePictureResponse(picture.getUuid().toString());
+    }
+
+    public PicturesResponse getAllPendingPictures() {
+        return  this.getPicturesByState(State.PENDING);
+    }
+
+    private PicturesResponse getPicturesByState(State state){
+        List<PictureResponse> listOfPictureResponses = pictureRepository.getPicturesByState(state)
+                .orElse(new ArrayList<>()).stream()
+                .map(picture -> new PictureResponse(picture.getUuid().toString() ,picture.getDescription(), picture.getCategory(), picture.getPictureData()))
+                .toList();
+        return new PicturesResponse(listOfPictureResponses);
     }
 }

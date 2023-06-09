@@ -31,4 +31,10 @@ public class PictureGiven {
                 .withUuid(uuid)
                 .build());
     }
+
+    public void hasManyPendingPictures(){
+        repository.save(aPicture().withState(State.PENDING).build());
+        repository.save(aPicture().withState(State.PENDING).build());
+        repository.save(aPicture().withState(State.ACCEPTED).build());
+    }
 }

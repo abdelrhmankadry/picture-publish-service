@@ -44,4 +44,9 @@ public class PictureController {
     public CreatePictureResponse uploadPicture(@RequestBody PictureRequest request){
        return pictureService.createPicture(request);
     }
+
+    @GetMapping("/pending-pictures")
+    public PicturesResponse getAllPendingPictures(){
+        return  pictureService.getAllPendingPictures();
+    }
 }

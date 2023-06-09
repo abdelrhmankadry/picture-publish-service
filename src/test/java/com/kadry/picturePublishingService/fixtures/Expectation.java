@@ -19,4 +19,5 @@ public class Expectation {
     public static PictureExpectation expectThat(PictureRepository pictureRepository){
         return new PictureExpectation(pictureRepository);
     }
+
 }
