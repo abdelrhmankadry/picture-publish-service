@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "pictures")
 @Getter
@@ -13,8 +15,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Picture {
 
-    public Picture(String description, Category category, State state, byte[] pictureData) {
-        Description = description;
+    public Picture(UUID uuid, String description, Category category, State state, byte[] pictureData) {
+        this.uuid = uuid;
+        this.description = description;
         this.category = category;
         this.state = state;
         this.pictureData = pictureData;
@@ -25,7 +28,10 @@ public class Picture {
     private Long id;
 
     @NotNull
-    private String Description;
+    private UUID uuid;
+
+    @NotNull
+    private String description;
 
     @NotNull
     @Enumerated(EnumType.STRING)

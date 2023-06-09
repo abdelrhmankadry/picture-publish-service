@@ -26,7 +26,7 @@ public class SecurityConfig  {
     @Bean
     public SecurityFilterChain anonymousFilterChain(HttpSecurity http, AuthJwtTokenFilter authJwtTokenFilter) throws Exception {
 
-        var whitelist = new String[] {"/api/signup", "/api/signin", "/api/pictures"};
+        var whitelist = new String[] {"/api/signup", "/api/signin", "/api/pictures", "/api/picture/*"};
         http
                 .authorizeHttpRequests(auth -> auth.requestMatchers(toH2Console()).permitAll())
                 .authorizeHttpRequests(auth -> auth.requestMatchers(whitelist).permitAll())
@@ -47,6 +47,7 @@ public class SecurityConfig  {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
+
 }
 
 

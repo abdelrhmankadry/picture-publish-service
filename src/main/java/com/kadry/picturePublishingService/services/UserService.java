@@ -22,7 +22,7 @@ public class UserService {
         }
         String encodedPassword = passwordEncoder.encode(credentialsRequest.password());
 
-        userRepository.save(new User(credentialsRequest.email(), encodedPassword, Role.USER));
+        userRepository.save(new User(credentialsRequest.email(), encodedPassword, Role.ROLE_USER));
         return new SignUpResponse(ResponseCodes.SIGNUP_SUCCEEDED, "User created");
     }
 }

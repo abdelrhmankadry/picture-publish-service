@@ -3,28 +3,31 @@ package com.kadry.picturePublishingService.fixtures.builders.domain;
 import com.kadry.picturePublishingService.domain.picture.Category;
 import com.kadry.picturePublishingService.domain.picture.Picture;
 import com.kadry.picturePublishingService.domain.picture.State;
+import com.kadry.picturePublishingService.fixtures.Utils;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
+
+import java.util.UUID;
 
 public class PictureBuilder {
 
     public static final String DESCRIPTION = "some test description";
     public static final  Category CATEGORY = Category.MACHINE;
     public static final State STATE = State.ACCEPTED;
+    public  final UUID PICTURE_UUID = UUID.randomUUID();
+
 
     private String description;
     private Category category;
     private State state;
     private byte[] pictureData;
 
+    private  UUID uuid;
     public PictureBuilder() {
         this.description = DESCRIPTION;
         this.category = CATEGORY;
         this.state = STATE;
-        loadPicture();
+        this.uuid = PICTURE_UUID;
+        pictureData = Utils.loadPicture();
     }
 
     public static PictureBuilder  aPicture(){
@@ -50,23 +53,13 @@ public class PictureBuilder {
         return this;
     }
 
+    public PictureBuilder withUuid(UUID uuid) {
+        this.uuid = uuid;
+        return this;
+    }
+
     public Picture build() {
-        return new Picture(description, category, state, pictureData);
+        return new Picture(uuid, description, category, state, pictureData);
     }
 
-    private void loadPicture(){
-        try {
-            // Read the image file
-            BufferedImage image = ImageIO.read(new File("test.png"));
-
-            // Write the image to a byte array
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(image, "png", baos);
-             pictureData = baos.toByteArray();
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

@@ -1,11 +1,19 @@
 package com.kadry.picturePublishingService.api.controllers;
 
+import com.kadry.picturePublishingService.api.models.reponses.picture.CreatePictureResponse;
+import com.kadry.picturePublishingService.api.models.reponses.picture.PictureResponse;
 import com.kadry.picturePublishingService.api.models.reponses.picture.PicturesResponse;
+import com.kadry.picturePublishingService.api.models.requests.PictureRequest;
+import com.kadry.picturePublishingService.core.exceptions.PictureNotFound;
+import com.kadry.picturePublishingService.core.security.AuthenticatedUser;
+
+import com.kadry.picturePublishingService.domain.user.Role;
 import com.kadry.picturePublishingService.services.PictureService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
+
 
 
 
@@ -18,5 +26,22 @@ public class PictureController {
     @GetMapping("/pictures")
     public PicturesResponse getAcceptedPicture(){
         return pictureService.getAllAcceptedPictures();
+    }
+
+    @GetMapping("/picture/{id}")
+    public PictureResponse getPictureById(@PathVariable String id, Authentication authentication) throws PictureNotFound {
+        if(authentication == null){
+            return pictureService.getAcceptedPictureById(id,null);
+        }
+        return pictureService.getAcceptedPictureById(id,
+                new AuthenticatedUser((String) authentication.getCredentials(),
+                        authentication.getAuthorities().stream().
+                                map(author -> Role.valueOf(author.toString())).toList()));
+    }
+
+    @PostMapping("/picture")
+    @ResponseStatus(HttpStatus.CREATED)
+    public CreatePictureResponse uploadPicture(@RequestBody PictureRequest request){
+       return pictureService.createPicture(request);
     }
 }

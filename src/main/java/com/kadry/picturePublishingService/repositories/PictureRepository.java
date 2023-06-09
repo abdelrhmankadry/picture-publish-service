@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface PictureRepository extends CrudRepository<Picture, Long> {
 
@@ -13,4 +14,6 @@ public interface PictureRepository extends CrudRepository<Picture, Long> {
     "FROM Picture p "+
     "WHERE p.state = 'ACCEPTED'")
     Optional<List<Picture>> getAllAcceptedPictures();
+
+    Optional<Picture> findByUuid(UUID uuid);
 }

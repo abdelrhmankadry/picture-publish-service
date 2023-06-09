@@ -8,7 +8,7 @@ public class UserBuilder {
     public static final String EMAIL = "test@test.com";
     public static final String PASSWORD = "password";
 
-    public static final Role ROLE = Role.USER;
+    public static final Role ROLE = Role.ROLE_USER;
     private String email = EMAIL;
     private String password = PASSWORD;
 
