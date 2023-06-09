@@ -68,4 +68,8 @@ public class PictureExpectation {
         }
     }
 
+    public void pictureStatusHasBeenUpdated(UUID id, State state) {
+        Picture picture = pictureRepository.findByUuid(id).orElse(new Picture());
+        assertEquals("Picture state should be updated to Accepted", state, picture.getState());
+    }
 }

@@ -57,4 +57,19 @@ public class PictureService {
                 .toList();
         return new PicturesResponse(listOfPictureResponses);
     }
+
+    public void acceptPicture(String id) throws PictureNotFound {
+        Picture picture = pictureRepository.findByUuid(UUID.fromString(id))
+              .orElseThrow(PictureNotFound::new);
+        picture.setState(State.ACCEPTED);
+        pictureRepository.save(picture);
+    }
+
+    public void rejectPicture(String id) throws PictureNotFound {
+        Picture picture = pictureRepository.findByUuid(UUID.fromString(id))
+                .orElseThrow(PictureNotFound::new);
+        picture.setState(State.REJECTED);
+        picture.setPictureData(new byte[]{});
+        pictureRepository.save(picture);
+    }
 }

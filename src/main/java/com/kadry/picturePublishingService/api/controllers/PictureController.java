@@ -11,6 +11,7 @@ import com.kadry.picturePublishingService.domain.user.Role;
 import com.kadry.picturePublishingService.services.PictureService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,5 +49,17 @@ public class PictureController {
     @GetMapping("/pending-pictures")
     public PicturesResponse getAllPendingPictures(){
         return  pictureService.getAllPendingPictures();
+    }
+
+    @PatchMapping("/activate-picture/{id}")
+    public ResponseEntity<String> acceptPicture(@PathVariable String id) throws PictureNotFound {
+        pictureService.acceptPicture(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/reject-picture/{id}")
+    public ResponseEntity<String> rejectPicture(@PathVariable String id) throws PictureNotFound {
+        pictureService.rejectPicture(id);
+        return ResponseEntity.ok().build();
     }
 }

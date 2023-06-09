@@ -1,5 +1,6 @@
 package com.kadry.picturePublishingService.integrationTests;
 
+import com.kadry.picturePublishingService.domain.picture.State;
 import com.kadry.picturePublishingService.repositories.PictureRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +11,13 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+
 import java.util.UUID;
 
 import static com.kadry.picturePublishingService.fixtures.Expectation.*;
 import static com.kadry.picturePublishingService.fixtures.Given.givenThat;
 import static com.kadry.picturePublishingService.fixtures.builders.requests.PictureRequestBuilder.aPictureRequest;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -74,5 +75,31 @@ public class PictureIT {
         MvcResult result= mockMvc.perform(get("/api/pending-pictures"))
                .andExpect(status().isOk()).andReturn();
         expectThatResultContainsAListOfPictures(result);
+    }
+
+    @Test
+    @WithMockUser(roles = {"ADMIN"})
+    public void acceptPendingPictureTest() throws Exception {
+        UUID id = UUID.randomUUID();
+        givenThat(pictureRepository).hasAPendingPictureWithId(id);
+
+        mockMvc.perform( patch("/api/activate-picture/"+id))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        expectThat(pictureRepository).pictureStatusHasBeenUpdated(id, State.ACCEPTED);
+    }
+
+    @Test
+    @WithMockUser(roles = {"ADMIN"})
+    public void rejectPendingPictureTest() throws Exception {
+        UUID id = UUID.randomUUID();
+        givenThat(pictureRepository).hasAPendingPictureWithId(id);
+
+        mockMvc.perform( patch("/api/reject-picture/"+id))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        expectThat(pictureRepository).pictureStatusHasBeenUpdated(id, State.REJECTED);
     }
 }
