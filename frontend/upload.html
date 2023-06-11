@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Upload Picture - Picture Publishing Service</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Upload Picture - Picture Publishing Service</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li id="admin-button"><a href="admin.html">Admin</a></li>
+                <li id="loginLogout"><a href="login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Upload Picture</h2>
+        <form id="upload-form" enctype="multipart/form-data">
+            <div>
+                <label for="description">Description:</label>
+                <input type="text" id="description" name="description" required>
+            </div>
+            <div>
+                <label for="category">Category:</label>
+                <select id="category" name="category" required>
+                    <option value="">Select a category</option>
+                    <option value="living_thing">Living Thing</option>
+                    <option value="machine">Machine</option>
+                    <option value="nature">Nature</option>
+                </select>
+            </div>
+            <div>
+                <label for="picture">Picture:</label>
+                <input type="file" id="picture" name="picture" accept="image/jpeg, image/png, image/gif" required>
+            </div>
+            <div>
+                <button type="submit">Upload</button>
+            </div>
+        </form>
+    </main>
+
+
+    <script src="scripts/nav-bar-script.js"></script>
+    <script src="scripts/upload-script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+/* Center the content */
+#container {
+    padding-top: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  /* Style the buttons */
+  #accept-button,
+  #reject-button {
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #accept-button {
+    background-color: rgb(9, 112, 9);
+    color: white;
+  }
+  
+  #reject-button {
+    background-color: rgb(216, 10, 10);
+    color: white;
+  }
+  
+
+ 
+  
+  /* Replace '_' with whitespace in category text */
+  #picture-details p:last-child::before {
+    content: attr(data-category);
+    white-space: pre-wrap;
+  }
+  
+  /* Style the image dimension */
+  #picture-details img {
+    display: block;
+    margin: 20px auto;
+  }
+  

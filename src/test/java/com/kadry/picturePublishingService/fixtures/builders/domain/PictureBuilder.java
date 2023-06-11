@@ -4,6 +4,7 @@ import com.kadry.picturePublishingService.domain.picture.Category;
 import com.kadry.picturePublishingService.domain.picture.Picture;
 import com.kadry.picturePublishingService.domain.picture.State;
 import com.kadry.picturePublishingService.fixtures.Utils;
+import org.postgresql.shaded.com.ongres.scram.common.bouncycastle.base64.Base64;
 
 
 import java.util.UUID;
@@ -19,7 +20,7 @@ public class PictureBuilder {
     private String description;
     private Category category;
     private State state;
-    private byte[] pictureData;
+    private String pictureData;
 
     private  UUID uuid;
     public PictureBuilder() {
@@ -48,7 +49,7 @@ public class PictureBuilder {
         return this;
     }
 
-    public PictureBuilder withPictureData(byte[] pictureData) {
+    public PictureBuilder withPictureData(String pictureData) {
         this.pictureData = pictureData;
         return this;
     }
@@ -58,8 +59,9 @@ public class PictureBuilder {
         return this;
     }
 
+
     public Picture build() {
-        return new Picture(uuid, description, category, state, pictureData);
+        return new Picture(uuid, description, category, state, Base64.decode(pictureData));
     }
 
 }

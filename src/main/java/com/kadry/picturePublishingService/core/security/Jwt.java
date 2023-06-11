@@ -57,11 +57,12 @@ public class Jwt {
     }
     public Authentication getAuthentication(String token){
         Claims claims =jwtParser.parseClaimsJws(token).getBody();
+        System.out.println(claims);
         Collection<GrantedAuthority> authorities =
                 Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
-                        .filter(auth -> auth.trim().isEmpty())
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
+        System.out.println(authorities);
         return new UsernamePasswordAuthenticationToken(claims.getSubject(),token, authorities);
     }
 }

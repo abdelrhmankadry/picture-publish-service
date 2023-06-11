@@ -1,6 +1,6 @@
 package com.kadry.picturePublishingService.services;
 
-import com.kadry.picturePublishingService.api.models.reponses.authentication.ResponseCodes;
+import com.kadry.picturePublishingService.api.models.reponses.authentication.ResponseCode;
 import com.kadry.picturePublishingService.api.models.reponses.authentication.SignUpResponse;
 import com.kadry.picturePublishingService.api.models.requests.CredentialsRequest;
 import com.kadry.picturePublishingService.domain.user.Role;
@@ -18,11 +18,11 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     public SignUpResponse createUser(CredentialsRequest credentialsRequest){
         if(userRepository.existsByEmail(credentialsRequest.email())){
-            return new SignUpResponse(ResponseCodes.SIGNUP_FAILED, "Email already exists");
+            return new SignUpResponse(ResponseCode.EMAIL_EXISTS, "Email already exists");
         }
         String encodedPassword = passwordEncoder.encode(credentialsRequest.password());
 
         userRepository.save(new User(credentialsRequest.email(), encodedPassword, Role.ROLE_USER));
-        return new SignUpResponse(ResponseCodes.SIGNUP_SUCCEEDED, "User created");
+        return new SignUpResponse(ResponseCode.SIGNUP_SUCCEEDED, "User created");
     }
 }

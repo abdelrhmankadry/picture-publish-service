@@ -12,7 +12,7 @@ public class PictureRequestBuilder {
 
     private String description;
     private Category category;
-    private byte[] pictureData;
+    private String pictureData;
 
     public PictureRequestBuilder() {
         this.description = DESCRIPTION;
@@ -33,7 +33,7 @@ public class PictureRequestBuilder {
         return this;
     }
 
-    public PictureRequestBuilder withPictureData(byte[] pictureData) {
+    public PictureRequestBuilder withPictureData(String pictureData) {
         this.pictureData = pictureData;
         return this;
     }

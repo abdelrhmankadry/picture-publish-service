@@ -12,9 +12,7 @@ public class Expectation {
         PictureExpectation.resultContainsListOfPictures(result);
     }
 
-    public static void expectThatResultContainsPictureWithId(MvcResult result, UUID uuid){
-        PictureExpectation.resultContainsPictureWithId(result, uuid);
-    }
+
 
     public static PictureExpectation expectThat(PictureRepository pictureRepository){
         return new PictureExpectation(pictureRepository);

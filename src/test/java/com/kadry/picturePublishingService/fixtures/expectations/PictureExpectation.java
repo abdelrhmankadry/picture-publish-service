@@ -43,17 +43,7 @@ public class PictureExpectation {
         }
     }
 
-    public static void resultContainsPictureWithId(MvcResult result, UUID uuid){
-        try {
-            String content = result.getResponse().getContentAsString();
-            ObjectMapper objectMapper = new ObjectMapper();
-            PictureResponse picture = objectMapper.readValue(content, PictureResponse.class);
-            assertThat(picture.uuid(), is(uuid.toString()));
-        } catch (UnsupportedEncodingException | JsonProcessingException e) {
-            fail(e.getMessage());
-        }
 
-    }
     public void hasPictureWithSameUuidReturnedFromRequest(MvcResult result){
         try {
             String content = result.getResponse().getContentAsString();

@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.Base64;
 
 public class Utils {
     public static String asJsonString(final Object obj){
@@ -17,7 +18,7 @@ public class Utils {
             throw new RuntimeException(e);
         }
     }
-    public static byte[] loadPicture(){
+    public static String loadPicture(){
         try {
             // Read the image file
             BufferedImage image = ImageIO.read(new File("test.png"));
@@ -25,7 +26,7 @@ public class Utils {
             // Write the image to a byte array
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(image, "png", baos);
-           return baos.toByteArray();
+           return Base64.getEncoder().encodeToString(baos.toByteArray());
 
 
         } catch (Exception e) {
