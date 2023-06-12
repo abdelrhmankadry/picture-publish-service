@@ -152,7 +152,7 @@ The Picture Publishing Service is composed of multiple Docker containers, each s
 
 1. **picture-publishing-service**: This container hosts the Spring Boot application, which provides the backend functionality of the Picture Publishing Service. It is built using the `Dockerfile-springboot`. This container runs the application on port 8080 and depends on the `db` container for the PostgreSQL database.
 
-2. **nginx**: This container uses the official Nginx image as the base (`nginx:latest`). It serves as a reverse proxy and handles the frontend requests. The HTML, CSS, and JS files required for the frontend are copied into the Nginx server root directory. The `Dockerfile-nginx` is used to build this container, and it exposes port 80 for incoming HTTP traffic. The `nginx` container depends on the `picture-publishing-service` container.
+2. **nginx**: This container uses the official Nginx image as the base (`nginx:latest`). It  handles the frontend requests. The HTML, CSS, and JS files required for the frontend are copied into the Nginx server root directory. The `Dockerfile-nginx` is used to build this container, and it exposes port 80 for incoming HTTP traffic. The `nginx` container depends on the `picture-publishing-service` container.
 
 3. **db**: This container uses the official PostgreSQL image (`postgres:13`) as the base. It sets up the PostgreSQL database required by the Picture Publishing Service. The `Dockerfile-postgres` is used to build this container. The container exposes port 5432 for communication with the database. The environment variables `POSTGRES_USER`, `POSTGRES_PASSWORD`, and `POSTGRES_DB` are configured to define the database credentials and name.
 
