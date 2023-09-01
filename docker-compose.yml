@@ -18,8 +18,6 @@ services:
       dockerfile: Dockerfile-nginx
     ports:
       - "80:80"
-    networks:
-      - spring-nginx
     depends_on:
       - picture-publishing-service
 
@@ -39,4 +37,4 @@ volumes:
 
 networks:
   spring-postgres:
-  spring-nginx:
+
